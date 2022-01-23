@@ -26,6 +26,12 @@ https://docs.harmony.one/home/network/wallets/browser-extensions-wallets/metamas
 brownie networks add Harmony harmony-test host=https://api.s0.b.hmny.io chainid=1666700000 name="Testnet (Shard 0)"
 ```
 
+# Faucet
+1/ go to https://explorer.pops.one/
+2/ search your metamask one address
+3/ get your one address
+4/ go to https://faucet.pops.one/ and claim faucet tokens
+
 # Install arweave-python-client
 https://github.com/MikeHibbert/arweave-python-client
 

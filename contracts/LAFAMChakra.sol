@@ -36,7 +36,6 @@ contract LAFAMChakra is ERC1155, Ownable {
         );
 
         _mint(avatar, chakraId, amount, "");
-
         emit ChakrasAwarded(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
     }
 
