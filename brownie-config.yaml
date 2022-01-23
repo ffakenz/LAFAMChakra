@@ -10,5 +10,7 @@ dotenv: .env
 
 networks:
   default: development
+  harmony-test:
+    explorer: https://explorer.pops.one
 wallets:
   from_key: ${PRIVATE_KEY}
