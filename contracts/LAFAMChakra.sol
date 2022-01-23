@@ -39,12 +39,11 @@ contract LAFAMChakra is ERC1155, Ownable {
         emit ChakrasAwarded(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
     }
 
-    // @FIXME
     function mintChakrasBatch(address avatar, uint[] memory chakraIds, uint[] memory amounts)
         public
         onlyOwner {       
         
-        for(uint i; i <= chakraIds.length; i++) {
+        for(uint i; i < chakraIds.length; i++) {
             uint chakraId = chakraIds[i];
             require(
                 isValidChakra(chakraId),
@@ -56,26 +55,24 @@ contract LAFAMChakra is ERC1155, Ownable {
         emit ChakrasAwarded(avatar, chakraIds, amounts, block.timestamp);
     }
 
-    // @FIXME
     function airDropChakrasWithMint(address[] memory avatars, uint chakraId, uint amount)
         public
         onlyOwner { 
 
-        for(uint i; i <= avatars.length; i++) {
+        for(uint i; i < avatars.length; i++) {
             address avatar = avatars[i];
             mintChakras(avatar, chakraId, amount);
             emit ChakrasAirdropped(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
         }
     }
 
-    // @FIXME
     function airDropChakrasWithTransfer(address[] memory avatars, uint chakraId, uint amount)
         public
         onlyOwner { 
 
         uint count = avatars.length;
         mintChakras(owner(), chakraId, count.mul(amount));
-        for(uint i; i <= count; i++) {
+        for(uint i; i < count; i++) {
             address avatar = avatars[i];
             safeTransferFrom(owner(), avatar, chakraId, amount, "");
             emit ChakrasAirdropped(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
