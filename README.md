@@ -38,3 +38,10 @@ https://github.com/MikeHibbert/arweave-python-client
 ```sh
 pipx install arweave-python-client --include-deps
 ```
+
+# Verify contract
+https://docs.harmony.one/home/developers/tools/smart-contract-verification
+
+1/ install and run https://github.com/poanetwork/solidity-flattener
+2/ run brownie compile to get contract abi
+3/ go to contract explorer and verify
