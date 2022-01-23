@@ -90,6 +90,14 @@ contract LAFAMChakra is ERC1155, Ownable {
         return string(abi.encodePacked(_baseUri, id, _uriExtension));
     }
 
+    function chackraBalanceOf(address avatar) public view returns (uint[] memory) {
+        uint chakraCount = maxChakra().add(1);
+        uint[] memory chakraBalance = new uint[](chakraCount);
+        for(uint i = minChakra(); i <= maxChakra(); i++) {
+            chakraBalance[i] = balanceOf(avatar, i);
+        }
+        return chakraBalance;
+    }
     /**
      * @dev pure functions
      */
