@@ -43,6 +43,7 @@ contract LAFAM_NFTs is ERC1155, Ownable {
     // @dev onlyOwner
     function addTAG(string memory tag) public onlyOwner {
         validateTagNotExist(tag);
+
         tags[tag] = true;
     }
 
@@ -54,6 +55,7 @@ contract LAFAM_NFTs is ERC1155, Ownable {
         validateIdNotExist(id);
         validateTagExists(tag);
         validateNameNotEmpty(name);
+
         NFTCollection memory c = NFTCollection({
             id: id,
             name: name,
@@ -64,7 +66,6 @@ contract LAFAM_NFTs is ERC1155, Ownable {
     }
 
      function mint(address avatar, string memory tag, uint id, uint amount) public onlyOwner {       
-        
         validateTagExists(tag);
         validateIdExists(id);
         validateTagMatchForId(tag, id);
@@ -74,7 +75,6 @@ contract LAFAM_NFTs is ERC1155, Ownable {
     }
 
     function mintBatch(address avatar, string memory tag, uint[] memory ids, uint[] memory amounts) public onlyOwner {       
-
         validateTagExists(tag);
         for(uint id; id < ids.length; id++) {
             validateIdExists(id);
@@ -86,7 +86,6 @@ contract LAFAM_NFTs is ERC1155, Ownable {
     }
     
     function airDropWithMint(address[] memory avatars, string memory tag, uint id, uint amount) public onlyOwner { 
-
         for(uint i; i < avatars.length; i++) {
             address avatar = avatars[i];
             mint(avatar, tag, id, amount);
@@ -95,7 +94,6 @@ contract LAFAM_NFTs is ERC1155, Ownable {
     }
 
     function airDropWithTransfer(address[] memory avatars, string memory tag, uint id, uint amount) public onlyOwner { 
-
         uint count = avatars.length;
         mint(owner(), tag, id, count.mul(amount));
         for(uint i; i < count; i++) {
