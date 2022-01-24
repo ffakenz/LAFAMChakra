@@ -16,7 +16,10 @@ contract LAFAMNFT is ERC1155, Ownable {
         string tag;
     }
     mapping(uint => NFTCollection) public nftCollections;
+    
     mapping(string => bool) public tags;
+    string[] public _tags;
+    mapping(string => uint[]) public _idsForTag;
 
     event NFTAwarded(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
     event NFTAirdropped(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
@@ -29,21 +32,24 @@ contract LAFAMNFT is ERC1155, Ownable {
     ) ERC1155(string(abi.encodePacked(baseUri, "{id}", ".json"))) { 
         _baseUri = baseUri;
         _uriExtension = ".json";
-
-        // addTAG("chakras");
-        // addNFTCollection(1, "ORANGE", "chakras");
-        // addNFTCollection(2, "YELLOW", "chakras");
-        // addNFTCollection(3, "GREEN", "chakras");
-        // addNFTCollection(4, "BLUE", "chakras");
-        // addNFTCollection(5, "INDIGO", "chakras");
-        // addNFTCollection(6, "VIOLET", "chakras");
-        // addNFTCollection(7, "RED", "chakras");
     }
     
+    function initialize() public onlyOwner {
+        addTAG("chakras");
+        addNFTCollection(1, "ORANGE", "chakras");
+        addNFTCollection(2, "YELLOW", "chakras");
+        addNFTCollection(3, "GREEN", "chakras");
+        addNFTCollection(4, "BLUE", "chakras");
+        addNFTCollection(5, "INDIGO", "chakras");
+        addNFTCollection(6, "VIOLET", "chakras");
+        addNFTCollection(7, "RED", "chakras");
+    }
+
     // @dev onlyOwner
     function addTAG(string memory tag) public onlyOwner {
         validateTagNotExist(tag);
 
+        _tags.push(tag);
         tags[tag] = true;
     }
 
@@ -63,6 +69,7 @@ contract LAFAMNFT is ERC1155, Ownable {
         });
 
         nftCollections[id] = c;
+        _idsForTag[tag].push(id);
     }
 
      function mint(address avatar, string memory tag, uint id, uint amount) public onlyOwner {       
@@ -108,6 +115,19 @@ contract LAFAMNFT is ERC1155, Ownable {
      */
     function uri(uint256 id) override public view virtual returns (string memory) {
         return buildURI(id);
+    }
+
+    function idsForTag(string memory tag) public view returns (uint[] memory) {
+        return _idsForTag[tag];
+    }
+
+    function tagBalanceOf(address avatar, string memory tag) public view returns (uint[] memory) {
+        uint[] memory ids = _idsForTag[tag];
+        uint[] memory tagBalance = new uint[](ids.length);
+        for(uint i = 1; i < ids.length; i++) {
+            tagBalance[i] = balanceOf(avatar, i);
+        }
+        return tagBalance;
     }
 
     // @dev validations
@@ -189,8 +209,4 @@ contract LAFAMNFT is ERC1155, Ownable {
         array[0] = element;
         return array;
     }
-
-    // @TODO get tags
-    // @TODO get ids for tags
-    // @TODO get avatar tag balance
 }
