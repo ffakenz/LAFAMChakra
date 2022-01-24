@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract LAFAM_NFTs is ERC1155, Ownable {
+contract LAFAMNFT is ERC1155, Ownable {
     using SafeMath for uint;
     using Strings for uint;
 
@@ -15,8 +15,8 @@ contract LAFAM_NFTs is ERC1155, Ownable {
         string name;
         string tag;
     }
-    mapping(uint => NFTCollection) nftCollections;
-    mapping(string => bool) tags;
+    mapping(uint => NFTCollection) public nftCollections;
+    mapping(string => bool) public tags;
 
     event NFTAwarded(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
     event NFTAirdropped(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
@@ -30,14 +30,14 @@ contract LAFAM_NFTs is ERC1155, Ownable {
         _baseUri = baseUri;
         _uriExtension = ".json";
 
-        addTAG("chakras");
-        addNFTCollection(1, "ORANGE", "chakras");
-        addNFTCollection(2, "YELLOW", "chakras");
-        addNFTCollection(3, "GREEN", "chakras");
-        addNFTCollection(4, "BLUE", "chakras");
-        addNFTCollection(5, "INDIGO", "chakras");
-        addNFTCollection(6, "VIOLET", "chakras");
-        addNFTCollection(7, "RED", "chakras");
+        // addTAG("chakras");
+        // addNFTCollection(1, "ORANGE", "chakras");
+        // addNFTCollection(2, "YELLOW", "chakras");
+        // addNFTCollection(3, "GREEN", "chakras");
+        // addNFTCollection(4, "BLUE", "chakras");
+        // addNFTCollection(5, "INDIGO", "chakras");
+        // addNFTCollection(6, "VIOLET", "chakras");
+        // addNFTCollection(7, "RED", "chakras");
     }
     
     // @dev onlyOwner
@@ -127,14 +127,14 @@ contract LAFAM_NFTs is ERC1155, Ownable {
 
     function validateIdNotExist(uint id) public view {
         require(
-            nftCollections[id].id != 0,
-            "invalid nft id - already exists"
+            nftCollections[id].id == 0,
+            string(abi.encodePacked("invalid nft id - already exists", id))
         );
     }
 
     function validateIdExists(uint id) public view {
         require(
-            nftCollections[id].id == 0,
+            nftCollections[id].id != 0,
             string(abi.encodePacked("invalid id - does not exists:", id))
         );
     }
@@ -153,6 +153,18 @@ contract LAFAM_NFTs is ERC1155, Ownable {
             string(abi.encodePacked("invalid tag - does not match current:",
                 "id ", id, ", ",
                 "tag ", tag, ", ",
+                "current ", current
+            ))
+        );
+    }
+
+    function validateNameMatchForId(string memory name, uint id) public view {
+        string memory current = nftCollections[id].name;
+        require(
+            compareStrings(current, name),
+            string(abi.encodePacked("invalid name - does not match current:",
+                "id ", id, ", ",
+                "name ", name, ", ",
                 "current ", current
             ))
         );
@@ -177,4 +189,8 @@ contract LAFAM_NFTs is ERC1155, Ownable {
         array[0] = element;
         return array;
     }
+
+    // @TODO get tags
+    // @TODO get ids for tags
+    // @TODO get avatar tag balance
 }
