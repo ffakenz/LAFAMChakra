@@ -122,10 +122,10 @@ contract LAFAMNFT is ERC1155, Ownable {
     }
 
     function tagBalanceOf(address avatar, string memory tag) public view returns (uint[] memory) {
-        uint[] memory ids = _idsForTag[tag];
+        uint[] memory ids = idsForTag(tag);
         uint[] memory tagBalance = new uint[](ids.length);
-        for(uint i = 1; i < ids.length; i++) {
-            tagBalance[i] = balanceOf(avatar, i);
+        for(uint i; i < ids.length; i++) {
+            tagBalance[i] = balanceOf(avatar, i.add(1));
         }
         return tagBalance;
     }
