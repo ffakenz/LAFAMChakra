@@ -42,6 +42,20 @@ pipx install arweave-python-client --include-deps
 # Verify contract
 https://docs.harmony.one/home/developers/tools/smart-contract-verification
 
+## prerequisites
 1/ install and run https://github.com/poanetwork/solidity-flattener
-2/ run brownie compile to get contract abi
-3/ go to contract explorer and verify
+2/ import metamask harmony-testnet
+    host: https://api.s0.b.hmny.io
+    chain id: 1666700000
+    explorer: https://explorer.pops.one/
+    symbol: ONE
+3/ set ur metamask private key in .env file
+
+## steps
+0/ brownie compile + get faucet
+1/ brownie run deploy_nft.py --network harmony-test
+2/ ./node_modules/.bin/poa-solidity-flattener ./contracts/LAFAMChakra.sol
+4/ copy json abi from remix with optimize 200
+5/ verify
+    0.8.11+commit.d7f03943
+6/ brownie run scripts/award_chakra.py —network harmony-test
