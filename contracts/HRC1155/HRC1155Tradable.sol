@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.11;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./Strings.sol";
+import "./StringsHRC.sol";
 import "./HRC1155.sol";
 import "./HRC1155MintBurn.sol";
 import "./HRC1155Metadata.sol";
 import "./MinterRole.sol";
 import "./WhitelistAdminRole.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract OwnableDelegateProxy {}
 
@@ -23,7 +24,8 @@ contract ProxyRegistry {
   like _exists(), name(), symbol(), and totalSupply()
  */
 contract HRC1155Tradable is HRC1155, HRC1155MintBurn, HRC1155Metadata, Ownable, MinterRole, WhitelistAdminRole {
-	using Strings for string;
+	using StringsHRC for string;
+	using SafeMath for uint256;
 
 	address proxyRegistryAddress;
 	uint256 private _currentTokenID = 0;
@@ -59,9 +61,9 @@ contract HRC1155Tradable is HRC1155, HRC1155MintBurn, HRC1155Metadata, Ownable, 
 		_addMinter(account);
 	}
 
-	function uri(uint256 _id) public view override returns (string memory) {
+	function uri(uint256 _id) public virtual view override returns (string memory) {
 		require(_exists(_id), "HRC721Tradable#uri: NONEXISTENT_TOKEN");
-		return Strings.strConcat(baseMetadataURI, Strings.uint2str(_id));
+		return StringsHRC.strConcat(baseMetadataURI, StringsHRC.uint2str(_id));
 	}
 
 	/**

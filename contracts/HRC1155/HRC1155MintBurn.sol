@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.11;
 
 import './HRC1155.sol';
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 /**
  * @dev Multi-Fungible Tokens with minting and burning methods. These methods assume
  *      a parent contract to be executed as they are `internal` functions
  */
 contract HRC1155MintBurn is HRC1155 {
-
+  using SafeMath for uint256;
 
   /****************************************|
   |            Minting Functions           |

@@ -2,12 +2,11 @@
 pragma solidity ^0.8.11;
 
 import "./HRC1155/HRC1155Tradable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
 
-contract LAFAMChakraHRC is HRC1155Tradable, Ownable {
+contract LAFAMChakraHRC is HRC1155Tradable {
     using SafeMath for uint;
     using Strings for uint;
 
@@ -21,7 +20,7 @@ contract LAFAMChakraHRC is HRC1155Tradable, Ownable {
     
     constructor(
         string memory baseUri
-    ) public HRC1155Tradable("LAFAMNFT", "LAFAM", "0x00") {
+    ) public HRC1155Tradable("LAFAMNFT", "LAFAM", 0x0000000000000000000000000000000000000000) {
         _baseUri = baseUri;
         _uriExtension = ".json";
 		_setBaseMetadataURI(string(abi.encodePacked(baseUri, "{id}", ".json")));
@@ -55,7 +54,7 @@ contract LAFAMChakraHRC is HRC1155Tradable, Ownable {
             );
         }
 
-        _mintBatch(avatar, chakraIds, amounts, "");
+        _batchMint(avatar, chakraIds, amounts, "");
         emit ChakrasAwarded(avatar, chakraIds, amounts, block.timestamp);
     }
 
@@ -87,7 +86,7 @@ contract LAFAMChakraHRC is HRC1155Tradable, Ownable {
      * @dev public view functions
      */
     function uri(uint256 id) override public view virtual returns (string memory) {
-        require(_exists(_id), "HRC721Tradable#uri: NONEXISTENT_TOKEN");
+        require(_exists(id), "HRC721Tradable#uri: NONEXISTENT_TOKEN");
         return buildURI(id.toString());
     }
 

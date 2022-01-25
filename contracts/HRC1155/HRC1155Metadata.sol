@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.11;
 
 /**
  * @notice Contract that handles metadata related methods.
@@ -97,7 +97,7 @@ contract HRC1155Metadata {
 
     // Get each individual ASCII
     while (ii != 0) {
-      bstr[k--] = byte(uint8(48 + ii % 10));
+      bstr[k--] = bytes(uint8(48 + ii % 10));
       ii /= 10;
     }
 

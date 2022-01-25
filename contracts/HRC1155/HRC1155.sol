@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.11;
 
 import './IHRC165.sol';
 import './IHRC1155TokenReceiver.sol';
 import "@openzeppelin/contracts/utils/Address.sol";
-import "@openzeppelin/contracts-ethereum-package/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 /**
  * @dev Implementation of Multi-Token Standard contract
  */
@@ -32,7 +32,6 @@ contract HRC1155 is IHRC165 {
   event TransferSingle(address indexed _operator, address indexed _from, address indexed _to, uint256 _id, uint256 _amount);
   event TransferBatch(address indexed _operator, address indexed _from, address indexed _to, uint256[] _ids, uint256[] _amounts);
   event ApprovalForAll(address indexed _owner, address indexed _operator, bool _approved);
-  event URI(string _uri, uint256 indexed _id);
 
 
   /***********************************|

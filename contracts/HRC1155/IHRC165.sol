@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity 0.6.12;
+pragma solidity ^0.8.11;
 /**
  * @title HRC165
  * @dev https://github.com/ethereum/EIPs/blob/master/EIPS/eip-165.md
