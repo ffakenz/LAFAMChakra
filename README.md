@@ -18,6 +18,10 @@ export UPLOAD_IPFS=true
 export PINATA_API_KEY=
 export PINATA_API_SECRET=
 ```
+# pretty files
+```sh
+npm run prettier
+```
 
 # Add harmony testnet to your list of networks
 https://docs.harmony.one/home/network/wallets/browser-extensions-wallets/metamask-wallet
