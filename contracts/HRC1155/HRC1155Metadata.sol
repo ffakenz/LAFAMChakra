@@ -97,7 +97,7 @@ contract HRC1155Metadata {
 
     // Get each individual ASCII
     while (ii != 0) {
-      bstr[k--] = bytes(uint8(48 + ii % 10));
+      bstr[k--] = bytes1(uint8(48 + ii % 10));
       ii /= 10;
     }
 
