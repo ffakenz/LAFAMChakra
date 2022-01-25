@@ -49,6 +49,7 @@ https://docs.harmony.one/home/developers/tools/smart-contract-verification
     chain id: 1666700000
     explorer: https://explorer.pops.one/
     symbol: ONE
+3/ set ur metamask private key in .env file
 
 ## steps
 0/ brownie compile + get faucet
