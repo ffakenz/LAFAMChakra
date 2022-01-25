@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// OpenZeppelin Contracts v4.4.0 (utils/introspection/IERC165.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/IERC165.sol)
 
 pragma solidity ^0.8.0;
 
@@ -24,7 +24,7 @@ interface IERC165 {
     function supportsInterface(bytes4 interfaceId) external view returns (bool);
 }
 
-// OpenZeppelin Contracts v4.4.0 (utils/Context.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)
 
 
 
@@ -48,7 +48,7 @@ abstract contract Context {
     }
 }
 
-// OpenZeppelin Contracts v4.4.0 (utils/Strings.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/Strings.sol)
 
 
 
@@ -118,7 +118,7 @@ library Strings {
 
 
 
-// OpenZeppelin Contracts v4.4.0 (access/Ownable.sol)
+// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)
 
 
 
@@ -195,12 +195,12 @@ abstract contract Ownable is Context {
 }
 
 
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/ERC1155.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/ERC1155.sol)
 
 
 
 
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/IERC1155.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/IERC1155.sol)
 
 
 
@@ -326,7 +326,7 @@ interface IERC1155 is IERC165 {
 }
 
 
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/IERC1155Receiver.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/IERC1155Receiver.sol)
 
 
 
@@ -380,7 +380,7 @@ interface IERC1155Receiver is IERC165 {
 }
 
 
-// OpenZeppelin Contracts v4.4.0 (token/ERC1155/extensions/IERC1155MetadataURI.sol)
+// OpenZeppelin Contracts v4.4.1 (token/ERC1155/extensions/IERC1155MetadataURI.sol)
 
 
 
@@ -403,7 +403,7 @@ interface IERC1155MetadataURI is IERC1155 {
 }
 
 
-// OpenZeppelin Contracts v4.4.0 (utils/Address.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/Address.sol)
 
 
 
@@ -622,7 +622,7 @@ library Address {
 
 
 
-// OpenZeppelin Contracts v4.4.0 (utils/introspection/ERC165.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/introspection/ERC165.sol)
 
 
 
@@ -1106,7 +1106,7 @@ contract ERC1155 is Context, ERC165, IERC1155, IERC1155MetadataURI {
 }
 
 
-// OpenZeppelin Contracts v4.4.0 (utils/math/SafeMath.sol)
+// OpenZeppelin Contracts v4.4.1 (utils/math/SafeMath.sol)
 
 
 
