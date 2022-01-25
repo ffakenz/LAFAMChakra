@@ -144,7 +144,7 @@ contract LAFAMKeys is ERC1155, Ownable {
         address to,
         uint256 id,
         uint256 amount
-    ) public virtual override {    
+    ) public {    
         safeTransferFrom(from, to, id, amount, "");
     }
 
