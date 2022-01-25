@@ -13,7 +13,6 @@ contract LAFAMChakra is ERC1155, Ownable {
     enum Chakra {RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET}
     
     event ChakrasAwarded(address avatar, uint[] chakras, uint[] amounts, uint time);
-    event ChakrasAirdropped(address avatar, uint[] chakras, uint[] amounts, uint time);
 
     string _baseUri;
     string _uriExtension;
@@ -62,7 +61,6 @@ contract LAFAMChakra is ERC1155, Ownable {
         for(uint i; i < avatars.length; i++) {
             address avatar = avatars[i];
             mintChakras(avatar, chakraId, amount);
-            emit ChakrasAirdropped(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
         }
     }
 
@@ -75,7 +73,6 @@ contract LAFAMChakra is ERC1155, Ownable {
         for(uint i; i < count; i++) {
             address avatar = avatars[i];
             safeTransferFrom(owner(), avatar, chakraId, amount, "");
-            emit ChakrasAirdropped(avatar, asSingletonArray(chakraId), asSingletonArray(amount), block.timestamp);
         }
     }
 

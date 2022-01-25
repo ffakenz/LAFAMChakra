@@ -21,8 +21,13 @@ contract LAFAMNFT is ERC1155, Ownable {
     string[] public _tags;
     mapping(string => uint[]) public _idsForTag;
 
-    event NFTAwarded(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
-    event NFTAirdropped(address avatar, string tag, uint[] ids, uint[] amounts, uint time);
+    event NFTAwarded(
+        address indexed avatar,
+        string indexed tag, 
+        uint[] ids,
+        uint[] amounts,
+        uint indexed time
+    );
     
     string _baseUri;
     string _uriExtension;
@@ -96,7 +101,6 @@ contract LAFAMNFT is ERC1155, Ownable {
         for(uint i; i < avatars.length; i++) {
             address avatar = avatars[i];
             mint(avatar, tag, id, amount);
-            emit NFTAirdropped(avatar, tag, asSingletonArray(id), asSingletonArray(amount), block.timestamp);
         }
     }
 
@@ -106,18 +110,19 @@ contract LAFAMNFT is ERC1155, Ownable {
         for(uint i; i < count; i++) {
             address avatar = avatars[i];
             safeTransferFrom(owner(), avatar, id, amount, "");
-            emit NFTAirdropped(avatar, tag, asSingletonArray(id), asSingletonArray(amount), block.timestamp);
         }
     }
 
     /**
      * @dev public functions
      */
-    function uri(uint256 id) override public view virtual returns (string memory) {
+    function uri(uint256 id) override public view virtual returns (string memory) {        
         return buildURI(id);
     }
 
     function idsForTag(string memory tag) public view returns (uint[] memory) {
+        validateTagExists(tag);
+
         return _idsForTag[tag];
     }
 
@@ -194,6 +199,8 @@ contract LAFAMNFT is ERC1155, Ownable {
      * @dev private functions
      */
     function buildURI(uint id) private view returns (string memory) {
+        validateIdExists(id);
+
         NFTCollection memory nft = nftCollections[id];
         string memory fileDir = nft.tag;
         string memory fileName = nft.name;
