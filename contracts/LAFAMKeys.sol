@@ -141,7 +141,7 @@ contract LAFAMKeys is ERC1155, Ownable {
         mint(owner(), tag, id, count.mul(amount));
         for (uint256 i; i < count; i++) {
             address avatar = avatars[i];
-            transfer(avatar, id, amount);
+            safeTransferFromSender(avatar, id, amount);
         }
     }
 
@@ -184,7 +184,7 @@ contract LAFAMKeys is ERC1155, Ownable {
         return tagBalance;
     }
 
-    function transfer(
+    function safeTransferFromSender(
         address to,
         uint256 id,
         uint256 amount
