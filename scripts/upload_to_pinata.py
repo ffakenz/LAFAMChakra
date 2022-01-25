@@ -29,7 +29,7 @@ for chakra in chakras:
 
 
     
-    metadata_path = "./metadata/chakra-" + chakra + ".json"
+    metadata_path = "./metadata/" + chakra_id + ".json"
     metadata_name = chakra_id + ".json"
     print(metadata_name)
     with Path(metadata_path).open("rb") as fp:
