@@ -2,20 +2,18 @@
 
 pragma solidity ^0.8.11;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "./StringsHRC.sol";
 import "./HRC1155.sol";
 import "./HRC1155MintBurn.sol";
 import "./HRC1155Metadata.sol";
 import "./MinterRole.sol";
 import "./WhitelistAdminRole.sol";
+import "./OwnableDelegateProxy.sol";
+import "./ProxyRegistry.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract OwnableDelegateProxy {}
 
-contract ProxyRegistry {
-	mapping(address => OwnableDelegateProxy) public proxies;
-}
 
 /**
  * @title HRC1155Tradable

@@ -5,7 +5,6 @@ import "./HRC1155/HRC1155Tradable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-
 contract LAFAMChakraHRC is HRC1155Tradable {
     using SafeMath for uint;
     using Strings for uint;
