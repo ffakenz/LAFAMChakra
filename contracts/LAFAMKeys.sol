@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract LAFAMNFT is ERC1155, Ownable {
+contract LAFAMKeys is ERC1155, Ownable {
     using SafeMath for uint;
     using Strings for uint;
 
@@ -29,14 +29,18 @@ contract LAFAMNFT is ERC1155, Ownable {
         uint indexed time
     );
     
-    string _baseUri;
-    string _uriExtension;
+    string public _baseUri;
+    string public _uriExtension;
+    string private _name;
+    string private _symbol;
 
     constructor(
         string memory baseUri
     ) ERC1155(string(abi.encodePacked(baseUri, "{id}", ".json"))) { 
         _baseUri = baseUri;
         _uriExtension = ".json";
+        _name = "LAFAM";
+        _symbol = "LAFAM";
     }
     
     function initialize() public onlyOwner {
