@@ -89,8 +89,8 @@ contract LAFAMKeys is ERC1155, Ownable {
     function mint(
         address avatar,
         string memory tag,
-        uint id,
-        uint amount
+        uint256 id,
+        uint256 amount
     ) public onlyOwner {
         validateTagExists(tag);
         validateIdExists(id);
