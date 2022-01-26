@@ -41,16 +41,12 @@ contract LAFAMNfts is ERC1155, Ownable {
 
     string public _baseUri;
     string public _uriExtension;
-    string private _name;
-    string private _symbol;
 
     constructor(string memory baseUri)
         ERC1155(string(abi.encodePacked(baseUri, "{tag}/{id}", ".json")))
     {
         _baseUri = baseUri;
         _uriExtension = ".json";
-        _name = "LAFAMKeys";
-        _symbol = "LAFAM";
     }
 
     function initialize() public onlyOwner {
@@ -62,6 +58,7 @@ contract LAFAMNfts is ERC1155, Ownable {
         addNFTCollection(0, "INDIGO", "chakras", true); // globaId: 5
         addNFTCollection(0, "VIOLET", "chakras", true); // globaId: 6
         addNFTCollection(0, "RED", "chakras", true);    // globaId: 7
+        addNFTCollection(144, "RED", "chakras", false); // globaId: 8
     }
 
     // @dev onlyOwner
@@ -141,7 +138,8 @@ contract LAFAMNfts is ERC1155, Ownable {
         validateTagExists(tag);
         uint totalIds = ids.length;
         uint256[] memory globalIds = new uint256[](totalIds);
-        for (uint256 id; id < totalIds; id++) {
+        for (uint256 i; i < totalIds; i++) {
+            uint256 id = ids[i];
             validateNFTCollectionEnabled(id, tag, name);
             uint globalId = _globalIdFor[id][tag][name];
             validateTagMatchForGlobalId(tag, globalId);
@@ -182,7 +180,8 @@ contract LAFAMNfts is ERC1155, Ownable {
         mint(owner(), tag, name, id, count.mul(amount));
         for (uint256 i; i < count; i++) {
             address avatar = avatars[i];
-            safeTransferFromSender(avatar, id, amount);
+            uint globalId = _globalIdFor[id][tag][name];
+            safeTransferFromSender(avatar, globalId, amount);
         }
     }
 
@@ -191,6 +190,7 @@ contract LAFAMNfts is ERC1155, Ownable {
      */
 
     // depends on token id existance due to buildURI
+    // id represents globalId
     function uri(uint256 id)
         public
         view
@@ -256,6 +256,7 @@ contract LAFAMNfts is ERC1155, Ownable {
         string memory name,
         uint256 amount
     ) public {
+        validateNFTCollectionEnabled(id, tag, name);
         uint256 globalId = _globalIdFor[id][tag][name];
         validateGlobalIdExists(globalId);
         NFTCollection memory nft = nftCollections[globalId];

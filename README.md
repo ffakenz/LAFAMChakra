@@ -70,12 +70,8 @@ https://docs.harmony.one/home/developers/tools/smart-contract-verification
 3/ brownie run award_chakras.py --network bsc-test
 4/ brownie run transfer_chakras.py --network bsc-test
 
-
-2/ ./node_modules/.bin/poa-solidity-flattener ./contracts/LAFAMKeys.sol
-4/ copy json abi from remix with optimize 200
-5/ verify
-    0.8.11+commit.d7f03943
-6/ brownie run scripts/award_chakra.py —network harmony-test
-
-
-0xDeF9A401DC1DC83CE5a6340Ccd194df92875763d
+# Issues
+- Untitled Collection in metask-mobile extension (NOT YET SUPPORTED)
+    https://ethereum.stackexchange.com/questions/118162/erc-1155-interface-with-metamask-mobile
+    https://github.com/MetaMask/metamask-mobile/blob/3eedff84c7436cfe9e39a9ddcc4e17c34d438f62/app/components/UI/CollectibleContractElement/index.js#L178
+    https://github.com/MetaMask/metamask-mobile/blob/7a640713593c09852b5546479538fb4e31cd52fc/locales/languages/en.json#L391
