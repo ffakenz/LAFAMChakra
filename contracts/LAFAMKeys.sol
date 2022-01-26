@@ -115,9 +115,9 @@ contract LAFAMKeys is ERC1155, Ownable {
         uint256[] memory amounts
     ) public onlyOwner {
         validateTagExists(tag);
-        for (uint256 id; id < ids.length; id++) {
-            validateIdExists(id);
-            validateTagMatchForId(tag, id);
+        for (uint256 i; i < ids.length; i++) {
+            validateIdExists(ids[i]);
+            validateTagMatchForId(tag, ids[i]);
         }
 
         _mintBatch(avatar, ids, amounts, "");
