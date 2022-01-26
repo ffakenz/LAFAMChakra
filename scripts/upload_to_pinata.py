@@ -13,7 +13,6 @@ headers = {'pinata_api_key': os.getenv('PINATA_API_KEY'),
 
 chakras = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
 
-
 for chakra in chakras:
     print(chakra)
     chakra_id = str(chakras.index(chakra))

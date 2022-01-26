@@ -58,8 +58,24 @@ https://docs.harmony.one/home/developers/tools/smart-contract-verification
 ## steps
 0/ brownie compile + get faucet
 1/ brownie run deploy_nft.py --network harmony-test
-2/ ./node_modules/.bin/poa-solidity-flattener ./contracts/LAFAMChakra.sol
+2/ ./node_modules/.bin/poa-solidity-flattener ./contracts/LAFAMKeys.sol
 4/ copy json abi from remix with optimize 200
 5/ verify
     0.8.11+commit.d7f03943
 6/ brownie run scripts/award_chakra.py —network harmony-test
+
+### bsc
+0/ brownie compile + get faucet
+1/ brownie run deploy_nft.py --network bsc-test
+3/ brownie run award_chakras.py --network bsc-test
+4/ brownie run transfer_chakras.py --network bsc-test
+
+
+2/ ./node_modules/.bin/poa-solidity-flattener ./contracts/LAFAMKeys.sol
+4/ copy json abi from remix with optimize 200
+5/ verify
+    0.8.11+commit.d7f03943
+6/ brownie run scripts/award_chakra.py —network harmony-test
+
+
+0xDeF9A401DC1DC83CE5a6340Ccd194df92875763d

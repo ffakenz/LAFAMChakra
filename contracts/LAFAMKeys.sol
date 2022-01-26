@@ -32,16 +32,12 @@ contract LAFAMKeys is ERC1155, Ownable {
 
     string public _baseUri;
     string public _uriExtension;
-    string private _name;
-    string private _symbol;
 
     constructor(string memory baseUri)
         ERC1155(string(abi.encodePacked(baseUri, "{tag}/{id}", ".json")))
     {
         _baseUri = baseUri;
         _uriExtension = ".json";
-        _name = "LAFAMKeys";
-        _symbol = "LAFAM";
     }
 
     function initialize() public onlyOwner {
