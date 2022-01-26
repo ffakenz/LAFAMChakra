@@ -7,27 +7,27 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract LAFAMKeys is ERC1155, Ownable {
-    using SafeMath for uint;
-    using Strings for uint;
+    using SafeMath for uint256;
+    using Strings for uint256;
 
     struct NFTCollection {
-        uint id;
+        uint256 id;
         string name;
         string tag;
         bool enabled;
     }
-    mapping(uint => NFTCollection) public nftCollections;
+    mapping(uint256 => NFTCollection) public nftCollections;
 
     mapping(string => bool) public tags;
     string[] public _tags;
-    mapping(string => uint[]) public _idsForTag;
+    mapping(string => uint256[]) public _idsForTag;
 
     event NFTAwarded(
         address indexed avatar,
         string indexed tag,
-        uint[] ids,
-        uint[] amounts,
-        uint indexed time
+        uint256[] ids,
+        uint256[] amounts,
+        uint256 indexed time
     );
 
     string public _baseUri;
@@ -66,7 +66,7 @@ contract LAFAMKeys is ERC1155, Ownable {
 
     // depends on tag existance (addTAG)
     function addNFTCollection(
-        uint id,
+        uint256 id,
         string memory name,
         string memory tag
     ) public onlyOwner {
@@ -74,7 +74,12 @@ contract LAFAMKeys is ERC1155, Ownable {
         validateTagExists(tag);
         validateNameNotEmpty(name);
 
-        NFTCollection memory c = NFTCollection({id: id, name: name, tag: tag, enabled: true});
+        NFTCollection memory c = NFTCollection({
+            id: id,
+            name: name,
+            tag: tag,
+            enabled: true
+        });
 
         nftCollections[id] = c;
         _idsForTag[tag].push(id);
@@ -84,12 +89,12 @@ contract LAFAMKeys is ERC1155, Ownable {
     function mint(
         address avatar,
         string memory tag,
-        uint id
+        uint256 id
     ) public onlyOwner {
         validateTagExists(tag);
         validateIdExists(id);
         validateTagMatchForId(tag, id);
-        
+
         _mint(avatar, id, amount, "");
 
         emit NFTAwarded(
@@ -105,11 +110,11 @@ contract LAFAMKeys is ERC1155, Ownable {
     function mintBatch(
         address avatar,
         string memory tag,
-        uint[] memory ids,
-        uint[] memory amounts
+        uint256[] memory ids,
+        uint256[] memory amounts
     ) public onlyOwner {
         validateTagExists(tag);
-        for (uint id; id < ids.length; id++) {
+        for (uint256 id; id < ids.length; id++) {
             validateIdExists(id);
             validateTagMatchForId(tag, id);
         }
@@ -122,10 +127,10 @@ contract LAFAMKeys is ERC1155, Ownable {
     function airDropWithMint(
         address[] memory avatars,
         string memory tag,
-        uint id,
-        uint amount
+        uint256 id,
+        uint256 amount
     ) public onlyOwner {
-        for (uint i; i < avatars.length; i++) {
+        for (uint256 i; i < avatars.length; i++) {
             address avatar = avatars[i];
             mint(avatar, tag, id, amount);
         }
@@ -135,12 +140,12 @@ contract LAFAMKeys is ERC1155, Ownable {
     function airDropWithTransfer(
         address[] memory avatars,
         string memory tag,
-        uint id,
-        uint amount
+        uint256 id,
+        uint256 amount
     ) public onlyOwner {
-        uint count = avatars.length;
+        uint256 count = avatars.length;
         mint(owner(), tag, id, count.mul(amount));
-        for (uint i; i < count; i++) {
+        for (uint256 i; i < count; i++) {
             address avatar = avatars[i];
             safeTransferFromSender(avatar, id, amount);
         }
@@ -164,7 +169,7 @@ contract LAFAMKeys is ERC1155, Ownable {
     function idsForTag(string memory tag)
         public
         view
-        returns (uint[] memory)
+        returns (uint256[] memory)
     {
         validateTagExists(tag);
 
@@ -175,11 +180,11 @@ contract LAFAMKeys is ERC1155, Ownable {
     function tagBalanceOf(address avatar, string memory tag)
         public
         view
-        returns (uint[] memory)
+        returns (uint256[] memory)
     {
-        uint[] memory ids = idsForTag(tag);
-        uint[] memory tagBalance = new uint[](ids.length);
-        for (uint i; i < ids.length; i++) {
+        uint256[] memory ids = idsForTag(tag);
+        uint256[] memory tagBalance = new uint256[](ids.length);
+        for (uint256 i; i < ids.length; i++) {
             tagBalance[i] = balanceOf(avatar, i.add(1));
         }
         return tagBalance;
@@ -187,8 +192,8 @@ contract LAFAMKeys is ERC1155, Ownable {
 
     function safeTransferFromSender(
         address to,
-        uint id,
-        uint amount
+        uint256 id,
+        uint256 amount
     ) public {
         safeTransferFrom(msg.sender, to, id, amount, "");
     }
@@ -205,14 +210,14 @@ contract LAFAMKeys is ERC1155, Ownable {
         );
     }
 
-    function validateIdNotExist(uint id) public view {
+    function validateIdNotExist(uint256 id) public view {
         require(
             nftCollections[id].id == 0,
             string(abi.encodePacked("invalid nft id - already exists", id))
         );
     }
 
-    function validateIdExists(uint id) public view {
+    function validateIdExists(uint256 id) public view {
         require(
             nftCollections[id].enabled,
             string(abi.encodePacked("invalid id - does not exists:", id))
@@ -227,7 +232,7 @@ contract LAFAMKeys is ERC1155, Ownable {
         require(bytes(tag).length > 0, "invalid tag - empty");
     }
 
-    function validateTagMatchForId(string memory tag, uint id) public view {
+    function validateTagMatchForId(string memory tag, uint256 id) public view {
         string memory current = nftCollections[id].tag;
         require(
             compareStrings(current, tag),
@@ -247,7 +252,7 @@ contract LAFAMKeys is ERC1155, Ownable {
         );
     }
 
-    function validateNameMatchForId(string memory name, uint id)
+    function validateNameMatchForId(string memory name, uint256 id)
         public
         view
     {
@@ -275,7 +280,7 @@ contract LAFAMKeys is ERC1155, Ownable {
      */
 
     // depends on tag and token id existance (addNFTCollection)
-    function buildURI(uint id) private view returns (string memory) {
+    function buildURI(uint256 id) private view returns (string memory) {
         validateIdExists(id);
 
         NFTCollection memory nft = nftCollections[id];
@@ -302,12 +307,12 @@ contract LAFAMKeys is ERC1155, Ownable {
             keccak256(abi.encodePacked((b))));
     }
 
-    function asSingletonArray(uint element)
+    function asSingletonArray(uint256 element)
         private
         pure
-        returns (uint[] memory)
+        returns (uint256[] memory)
     {
-        uint[] memory array = new uint[](1);
+        uint256[] memory array = new uint256[](1);
         array[0] = element;
         return array;
     }
