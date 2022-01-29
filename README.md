@@ -30,6 +30,11 @@ https://docs.harmony.one/home/network/wallets/browser-extensions-wallets/metamas
 brownie networks add Harmony harmony-test host=https://api.s0.b.hmny.io chainid=1666700000 name="Testnet (Shard 0)"
 ```
 
+# Run tests
+```sh
+brownie test
+```
+
 # Faucet
 1/ go to https://explorer.pops.one/
 2/ search your metamask one address
